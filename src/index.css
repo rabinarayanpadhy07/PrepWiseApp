@@ -1,0 +1,155 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/*
+ * PrepWise design tokens.
+ * Components must use these semantic tokens (bg-primary, text-muted-foreground,
+ * border-border, ...) instead of raw hex values.
+ *
+ * Contrast notes (WCAG 2.2):
+ * - primary #344EEE on white: 6.05:1, on primary-subtle #E8ECFF: 5.15:1
+ * - muted-foreground #6B7280 on background #F8FAFC: 4.62:1
+ * - success #16A34A is 3.3:1 on white, so it is used for icons/borders only;
+ *   success text uses --success-text (#15803D, 5.02:1).
+ * - destructive text on a tinted surface uses --destructive-text (#B91C1C, 5.91:1).
+ */
+:root {
+  --radius: 0.5rem;
+
+  /* Brand palette */
+  --brand-primary: #344eee;
+  --brand-primary-hover: #2a3fd0;
+  --brand-primary-subtle: #e8ecff;
+  --brand-white: #ffffff;
+  --brand-page: #f8fafc;
+  --brand-text: #111827;
+  --brand-text-secondary: #6b7280;
+  --brand-border: #e5e7eb;
+  --brand-success: #16a34a;
+  --brand-error: #dc2626;
+
+  /* Semantic tokens */
+  --background: var(--brand-page);
+  --foreground: var(--brand-text);
+  --surface: var(--brand-white);
+  /* Categorical chart series, in fixed order (validated: CVD and contrast vs white). */
+  --chart-1: #2a78d6;
+  --chart-2: #eb6834;
+  --card: var(--brand-white);
+  --card-foreground: var(--brand-text);
+  --popover: var(--brand-white);
+  --popover-foreground: var(--brand-text);
+  --primary: var(--brand-primary);
+  --primary-hover: var(--brand-primary-hover);
+  --primary-foreground: var(--brand-white);
+  --primary-subtle: var(--brand-primary-subtle);
+  --secondary: #f1f5f9;
+  --secondary-foreground: var(--brand-text);
+  --muted: #f1f5f9;
+  --muted-foreground: var(--brand-text-secondary);
+  --accent: var(--brand-primary-subtle);
+  --accent-foreground: var(--brand-primary);
+  --success: var(--brand-success);
+  --success-text: #15803d;
+  --success-subtle: #f0fdf4;
+  --destructive: var(--brand-error);
+  --destructive-text: #b91c1c;
+  --destructive-subtle: #fef2f2;
+  --border: var(--brand-border);
+  --input: var(--brand-border);
+  --ring: var(--brand-primary);
+}
+
+@theme inline {
+  --font-sans:
+    "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+    "Noto Sans", sans-serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-subtle: var(--primary-subtle);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-success: var(--success);
+  --color-success-text: var(--success-text);
+  --color-success-subtle: var(--success-subtle);
+  --color-destructive: var(--destructive);
+  --color-destructive-text: var(--destructive-text);
+  --color-destructive-subtle: var(--destructive-subtle);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    min-width: 320px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply text-foreground tracking-tight;
+    text-wrap: balance;
+  }
+
+  /* Keyboard focus is always visible; mouse focus stays quiet. */
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-ring;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /* Typography scale. Headings stay modest on purpose. */
+  .text-display {
+    @apply text-3xl font-semibold leading-tight sm:text-4xl;
+  }
+  .text-title {
+    @apply text-2xl font-semibold leading-tight sm:text-3xl;
+  }
+  .text-heading {
+    @apply text-lg font-semibold leading-snug;
+  }
+  .text-body {
+    @apply text-base leading-7;
+  }
+}
